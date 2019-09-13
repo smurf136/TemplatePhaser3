@@ -13,6 +13,10 @@ let con01;
 let con02;
 let con03;
 let con04;
+let grass;
+let mountain;
+let tree;
+let ground;
 
 class MainMenu extends Phaser.Scene {
     constructor(test) {
@@ -22,24 +26,28 @@ class MainMenu extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('bg', './src/assets/BGMenu.png')
+        this.load.image('bg', './src/assets/BGMenu1.png')
         this.load.image('sign1', './src/assets/Sign1.png')
         this.load.image('sign2', './src/assets/Sign2.png')
         this.load.image('sign3', './src/assets/Sign3.png')
         this.load.image('sign4', './src/assets/Sign4.png')
-
+        this.load.image('grass', './src/assets/Grass.png')
+        this.load.image('ground', './src/assets/Ground.png')
+        this.load.image('mountain', './src/assets/Mountain.png')
+        this.load.image('tree', './src/assets/Tree.png')
     }
 
     create() {
-        bg = this.add.image(0, 0, 'bg').setOrigin(0, 0)
+        bg = this.add.image(0, 0, 'bg').setOrigin(0)
+        grass = this.add.image(-30, 65, 'grass').setScale(0.45).setOrigin(0)
+        ground = this.add.image(100, 0, 'ground')
+        mountain = this.add.image(200, 1000, 'mountain')
+        tree = this.add.image(0, 0, 'tree').setScale(0.5).setOrigin(0, 0)
+
         sign01 = this.add.image(0, 0, 'sign3').setScale(0.4)
         sign02 = this.add.image(0, 0, 'sign1').setScale(0.25)
         sign03 = this.add.image(0, 0, 'sign2').setScale(0.25)
         sign04 = this.add.image(0, 0, 'sign4').setScale(0.25)
-        // sign03.setPosition(this.cameras.main.centerX, 200)
-        // sign02.setPosition(this.cameras.main.centerX, 400)
-        // sign01.setPosition(this.cameras.main.centerX, 530)
-        // sign04.setPosition(this.cameras.main.centerX, 660)
 
         Mtext = this.add.text(0, 0, 'Name', {
             font: '48px Arial',
@@ -78,20 +86,7 @@ class MainMenu extends Phaser.Scene {
             gameObject.emit('clicked', gameObject);
         }, this);
 
-
-
-        // prototype
-        // signP = this.add.image(0, 0, 'sign1').setScale(0.25)
-        // sign01 = this.add.group()
-        // sign01.createMultiple({
-        //     key: 'sign1',
-        //     repeat: 1
-        // });
-        var _this = this
-        // sign01.children.iterate(function (child) {
-        // sign01.x = 300oo
-        // sign01.y = 100
-        // sign01.setScale(0.35)
+        var _this = this;
 
         _this.tweens.add({
             targets: con01,
@@ -129,8 +124,46 @@ class MainMenu extends Phaser.Scene {
                 }
             }
         });
+        _this.tweens.add({
+            targets: grass,
+            props: {
+                y: {
+                    value: -65,
+                    duration: 1500
+                }
+            }
+        });
+        _this.tweens.add({
+            targets: ground,
+            props: {
+                y: {
+                    value: 100,
+                    duration: 1500
+                }
+            }
+        });
+        _this.tweens.add({
+            targets: mountain,
+            props: {
+                y: {
+                    value: -10,
+                    duration: 1500
+                }
+            }
+        });
+        _this.tweens.add({
+            targets: tree,
+            props: {
+                y: {
+                    value: -100,
+                    duration: 1500
+                }
+            }
+        });
 
         con01.setDepth(1)
+        grass.setDepth(1)
+        tree.setDepth(0)
 
 
     }
